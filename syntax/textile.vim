@@ -46,10 +46,14 @@ syn region textileHtml start="<\s*[-a-zA-Z0-9]\+" end="</\s*[-a-zA-Z0-9]\+>" end
 syn region textileCode start="<code>"ms=s+6 end="</code>" contains=@NoSpell
 syn region textilePreformatted start="<pre\>" end="</pre>" keepend contains=textileCode,@htmlTop
 
-" syn cluster textileTop contains=@textileCss
 syn region textileCss start="{" end="}" keepend contains=@cssTop contained
 syn region textileParenthisis start="(" end=")" contained contains=@textileCssClass,@textileCssId
 syn region textileLanguage start="\[" end="\]" contained
+
+" Match the following block alignment modifiers and indentions: <, >, <>, =,
+" and (, ). Get help in 'perl-patterns'
+syn match textileAlignment /\%(<\(>\)\@!\|<\@<!>\|<>\|=\|[()]\+ \@!\)/ contained
+
 
 " Textile commands like "h1" are case sensitive, AFAIK.
 syn case match
@@ -61,7 +65,7 @@ syn region textileLinkText matchgroup=String start=+"+ end=+"+ contained keepend
 syn region textileLinkHref  start=+:+ms=s+1 end="$" contained contains=@NoSpell
 
 " Inline elements.
-syn match txtEmphasis    /_[^_]\+_/     transparent
+syn match txtEmphasis    /_[^_]\+_/
 syn match txtBold        /\*[^*]\+\*/
 syn match txtCite        /??.\+??/
 syn match txtDeleted     /-[^-]\+-/
@@ -81,23 +85,24 @@ syn match txtImage       /![^!]\+!/
 " pattern. Aaron Bieber, 2007.
 syn match txtLink /"[^"]\+":\(\([^:\/?# ]\+\):\)\?\(\/\/\([^\/?# ]*\)\)\?\([^?# ]*\)\(?\([^# ]*\)\)\?\(#\([^ ]*\)\)\?/ contains=textileLinkText,textileLinkHref
 
-syn cluster txtInlineElement contains=txtEmphasis,txtBold,txtCite,txtDeleted,txtInserted,txtSuper,txtSub,txtSpan,txtLink
+syn cluster txtInlineElement contains=txtEmphasis,txtBold,txtCite,txtDeleted,txtInserted,txtSuper,txtSub,txtSpan,txtLink,txtCode
+
+syn region textileBlockTag start="^\(bq\|bc\|notextile\|pre\|h[1-6]\|fn\d+\|p\)" end="\. "me=e-2 keepend contains=textileAlignment,textileCss,textileBlockName,@NoSpell
+syn region textileBlockContent start="\. "ms=s+2 end="$" contained contains=@txtInlineElement,textileHtml keepend transparent
+
+" block names
+syn keyword textileBlockName contained table bq fn p
+syn match   textileBlockName /^\(h[1-6]\)/ contained
 
 " Block elements.
-syn region textileH1 start="^h1" end="$" contains=textileTop,textileCss
-syn region textileH2 start="^h2" end="$" contains=textileTop,textileCss,@txtInlineElement
-
-" syn match txtHeader         /^h1\(([^)]*)\)\{0,1\}\({[^}]*}\)\{0,1\}\. .\+/
-" syn match txtHeader2        /^h2\(([^)]*)\)\{0,1\}\({[^}]*}\)\{0,1\}\. .\+/
-syn match txtHeader3        /^h[3-6]\(([^)]*)\)\{0,1\}\({[^}]*}\)\{0,1\}\..\+/ contains=@txtInlineElement
-syn match txtBlockquote     /^bq\(\[[^\]]*\]\)\{0,1\}\./
+"syn region textileH1 start="^h1" end="$" keepend contains=textileTop,textileBlockTag,textileBlockContent
+"syn region textileH2 start="^h2" end="$" keepend contains=textileTop,textileBlockTag,textileBlockContent
 syn match txtFootnoteDef    /^fn[0-9]\+\./
 syn match txtListBullet     /\v^ {0,1}\*+ /
 syn match txtListBullet2    /\v^ {0,1}(\*\*)+ /
 syn match txtListNumber     /\v^ {0,1}#+(\{[^\}]*\}){0,1} /                contains=textileCss
 syn match txtListNumber2    /\v^ {0,1}(##)+(\{[^\}]*\}){0,1} /             contains=textileCss
-syn match txtTable          /^table\({[^}]*}\)\{0,1\}\./                   contains=@NoSpell,textileCss
-syn match txtParagraph      /^p\(([^)]*)\)\{0,1\}\({[^}]*}\)\{0,1\}\./     contains=@NoSpell,textileCss
+syn match txtTable          /^table\({[^}]*}\)\{0,1\}\./                   contains=textileCss
 
 syn cluster txtBlockElement contains=txtHeader,txtBlockElement,txtFootnoteDef,txtListBullet,txtListNumber
 
@@ -109,20 +114,17 @@ if version >= 508 || !exists("did_txt_syn_inits")
         command -nargs=+ HiLink hi def link <args>
     endif
 
-    HiLink textileH1 Title
-    HiLink textileH2 Question
+    HiLink textileBlockName Statement
     HiLink textileCode Constant
 
-    HiLink txtHeader Title
-    HiLink txtHeader2 Question
-    HiLink txtHeader3 Statement
+    HiLink textileBlockTag Title
+
     HiLink txtBlockquote Comment
     HiLink txtListBullet Operator
     HiLink txtListBullet2 Constant
     HiLink txtListNumber Operator
     HiLink txtListNumber2 Constant
 
-    "HiLink txtLink String
     HiLink textileLinkText Underlined
     HiLink textileLinkHref String
     HiLink textileLinkTitle Comment
@@ -132,9 +134,10 @@ if version >= 508 || !exists("did_txt_syn_inits")
     HiLink txtParagraph Title
     HiLink txtTable Title
 
-    "hi txtEmphasis gui=italic
-    hi def txtEmphasis term=underline cterm=underline gui=italic
-    hi def txtBold term=bold cterm=bold gui=bold
+    HiLink textileAlignment Title
+
+    hi def txtEmphasis term=italic cterm=italic gui=italic
+    hi def txtBold     term=bold cterm=bold gui=bold
 
     delcommand HiLink
 endif

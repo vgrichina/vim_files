@@ -60,9 +60,11 @@ syn case match
 
 " Textile syntax: <http://textism.com/tools/textile/>
 
-syn region textileLinkTitle start="("       end=")" contained keepend
-syn region textileLinkText matchgroup=String start=+"+ end=+"+ contained keepend contains=textileLinkTitle
+syn region textileLinkText matchgroup=String start=+"+ end=+"+ contained keepend contains=textileTitleAttribute
 syn region textileLinkHref  start=+:+ms=s+1 end="$" contained contains=@NoSpell
+
+" Attributes
+syn region textileTitleAttribute start="(" end=")" contained keepend
 
 " Inline elements.
 syn match txtEmphasis    /_[^_]\+_/
@@ -75,7 +77,7 @@ syn match txtSub         /\~[^~]\+\~/
 syn match txtSpan        /%[^%]\+%/     contains=textileCss
 syn match txtFootnoteRef /\[[0-9]\+]/
 syn match txtCode        /@[^@]\+@/
-syn match txtImage       /![^!]\+!/
+syn match txtImage       /![^!]\+!/     contains=textileTitleAttribute
 
 " Everything after the first colon is from RFC 2396, with extra
 " backslashes to keep vim happy...  Original:
@@ -127,7 +129,7 @@ if version >= 508 || !exists("did_txt_syn_inits")
 
     HiLink textileLinkText Underlined
     HiLink textileLinkHref String
-    HiLink textileLinkTitle Comment
+    HiLink textileTitleAttribute Comment
 
     HiLink txtCode Identifier
     HiLink txtImage Constant

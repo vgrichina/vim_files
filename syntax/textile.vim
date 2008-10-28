@@ -77,7 +77,6 @@ syn match txtSub         /\~[^~]\+\~/
 syn match txtSpan        /%[^%]\+%/     contains=textileCss
 syn match txtFootnoteRef /\[[0-9]\+]/
 syn match txtCode        /@[^@]\+@/
-syn match txtImage       /![^!]\+!/     contains=textileTitleAttribute
 
 " Everything after the first colon is from RFC 2396, with extra
 " backslashes to keep vim happy...  Original:
@@ -85,7 +84,8 @@ syn match txtImage       /![^!]\+!/     contains=textileTitleAttribute
 "
 " Revised the pattern to exclude spaces from the URL portion of the
 " pattern. Aaron Bieber, 2007.
-syn match txtLink /"[^"]\+":\(\([^:\/?# ]\+\):\)\?\(\/\/\([^\/?# ]*\)\)\?\([^?# ]*\)\(?\([^# ]*\)\)\?\(#\([^ ]*\)\)\?/ contains=textileLinkText,textileLinkHref
+syn match txtLink  /"[^"]\+":\(\([^:\/?# ]\+\):\)\?\(\/\/\([^\/?# ]*\)\)\?\([^?# ]*\)\(?\([^# ]*\)\)\?\(#\([^ ]*\)\)\?/            contains=textileLinkText,textileLinkHref
+syn match txtImage /![^!]\+!\%(:\(\([^:\/?# ]\+\):\)\?\(\/\/\([^\/?# ]*\)\)\?\([^?# ]*\)\(?\([^# ]*\)\)\?\(#\([^ ]*\)\)\?\)\{0,1}/ contains=textileTitleAttribute
 
 syn cluster txtInlineElement contains=txtEmphasis,txtBold,txtCite,txtDeleted,txtInserted,txtSuper,txtSub,txtSpan,txtLink,txtCode
 

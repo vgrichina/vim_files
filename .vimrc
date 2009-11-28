@@ -75,7 +75,8 @@ autocmd BufNewFile,BufRead *.py compiler python
 autocmd BufNewFile,BufRead *.hx compiler haxe
 autocmd BufNewFile,BufRead *.hx set filetype=haxe
 
-
+" Setup close XML/HTML tags plugin for files which can contain XML/HTML
+au Filetype html,xml,xsl,php,jsp,gsp source ~/.vim/scripts/closetag.vim
 
 " Custom menu for encodings
 

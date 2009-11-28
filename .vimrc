@@ -48,6 +48,10 @@ set showcmd
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
 
+" To create new tab, press ctrl-t.
+nmap <c-t> :tabnew<CR>
+imap <c-t> <Esc>:tabnew<CR>a
+
 " Search as you type.
 set incsearch
 

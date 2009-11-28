@@ -67,11 +67,10 @@ set showmode
 " Error bells are displayed visually.
 set visualbell
 
-
-
-
+" Setup compiler for python files
 autocmd BufNewFile,BufRead *.py compiler python
 
+" Setup compiler and filetype for haXe files
 autocmd BufNewFile,BufRead *.hx compiler haxe
 autocmd BufNewFile,BufRead *.hx set filetype=haxe
 

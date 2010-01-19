@@ -1,0 +1,41 @@
+
+bq. Original Readme (/doc/textile.txt) in textile :)
+
+h3. textile-REQUIREMENTS
+
+# "ruby":http://ruby-lang.org/ (seperate executable, not compiled in)
+# "RedCloth":http://whytheluckystiff.net/ruby/redcloth/
+
+<code>Files with the extension _**.textile*_ will auto-detected when editing.
+Otherwise, run _*:setf textile*_ to enable textile commands.</code>
+
+h3. textile-CHANGELOG
+
+<pre>
+0.3     - Fixed keymappings in the documentation
+0.2     - Added multiple colors for headers, and alternating colors for list items
+        - Fixed error in the vim script for TextileRenderBufferToFile
+        - Changed shortcut keys from \tp to \rp (render preview instead of textile
+        preview, since it's file-type specific anyways)
+0.1     - Initial Release|
+</pre>
+
+h3. textile-COMMANDS
+
+<pre>
+:TextilePreview     -Render the current buffer to a temp file, and open it in
+                    your web browser (OSX only) " <Leader>rp "
+:TextileRenderTab   - ... to a new tab " <Leader>rt "
+:TextileRenderFile  - ... to a file " <Leader>rf "
+</pre>
+<code><Leader> is \ by default, so <Leader>rp == \rp </code>
+
+h3. textile-CREDITS
+
+* "Dominic Mitchell":http://happygiraffe.net/ 
+** initial syntax highlighting
+* "Aaron Bieber":http://blog.aaronbieber.com/
+** improved syntax highlighting 
+* "Tim Harper":http://tim.theenchanter.com/
+** improved syntax highlighting, plugin
+

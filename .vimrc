@@ -10,6 +10,10 @@ set tabstop=4
 set expandtab
 set smarttab
 
+" Highlight trailing whitespace
+set list
+set listchars=tab:·\ ,trail:· "
+
 " Minimal number of screen lines to keep above and below the cursor.
 set scrolloff=999
 

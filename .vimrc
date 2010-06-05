@@ -14,6 +14,9 @@ set smarttab
 set list
 set listchars=tab:·\ ,trail:· "
 
+" On save any: trim trailing whitespace
+autocmd! BufWrite * mark ' | silent! %s/\s\+$// | norm ''
+
 " Minimal number of screen lines to keep above and below the cursor.
 set scrolloff=999
 
@@ -25,7 +28,7 @@ set imd
 
 " Set color scheme that I like.
 if has("gui_running")
-    colorscheme macvim 
+    colorscheme macvim
 else
     colorscheme darkblue
 endif

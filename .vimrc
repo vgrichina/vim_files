@@ -16,6 +16,9 @@ set tabstop=4
 set expandtab
 set smarttab
 
+" Enable Backspace usage
+set backspace=indent,eol,start
+
 " Highlight trailing whitespace
 set list
 set listchars=tab:·\ ,trail:· "

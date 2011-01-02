@@ -16,6 +16,9 @@ set tabstop=4
 set expandtab
 set smarttab
 
+" Configure formatting, in particular enable comment wrapping
+set formatoptions=tcroq
+
 " Enable Backspace usage
 set backspace=indent,eol,start
 

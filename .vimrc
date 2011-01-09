@@ -1,3 +1,9 @@
+" Make sure that we aren't in VI compatibility mode
+set nocompatible
+
+" Use UTF-8.
+set encoding=utf-8
+
 " Enable syntax highlighting.
 syntax on
 
@@ -10,6 +16,12 @@ set tabstop=4
 set expandtab
 set smarttab
 
+" Configure formatting, in particular enable comment wrapping
+set formatoptions=tcroq
+
+" Enable Backspace usage
+set backspace=indent,eol,start
+
 " Highlight trailing whitespace
 set list
 set listchars=tab:·\ ,trail:· "
@@ -19,9 +31,6 @@ autocmd! BufWrite * mark ' | silent! %s/\s\+$// | norm ''
 
 " Minimal number of screen lines to keep above and below the cursor.
 set scrolloff=999
-
-" Use UTF-8.
-set encoding=utf-8
 
 " Disable Input Method as it causes problems with keyboard layout switching
 set imd

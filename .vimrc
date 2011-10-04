@@ -112,6 +112,15 @@ filetype off
 call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 
+" Enable indentation for Vim plugins
 filetype plugin indent on
+
+" Zen Coding configuration
+let g:user_zen_settings = {
+\  'gsp' : {
+\    'extends' : 'html',
+\    'filters' : 'c',
+\  }
+\}
 
 

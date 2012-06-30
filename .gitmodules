@@ -15,7 +15,7 @@
 	url = git://github.com/itspriddle/vim-lesscss.git
 [submodule "bundle/vim-matchit"]
 	path = bundle/vim-matchit
-	url = git://github.com/mhz/vim-matchit.git
+	url = git://github.com/mirell/vim-matchit.git
 [submodule "bundle/ack.vim"]
 	path = bundle/ack.vim
 	url = git://github.com/mileszs/ack.vim.git
@@ -28,3 +28,6 @@
 [submodule "bundle/maven-plugin"]
 	path = bundle/maven-plugin
 	url = git://github.com/vim-scripts/maven-plugin.git
+[submodule "bundle/MatchTag"]
+	path = bundle/MatchTag
+	url = git://github.com/gregsexton/MatchTag.git
